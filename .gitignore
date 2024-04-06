@@ -1,0 +1,82 @@
+# Xcode
+##
+.DS_Store
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/
+*.xcworkspace/xcuserdata/
+xcuserdata/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+build/
+*.pbxuser
+!default.pbxuser
+*.perspectivev3
+!default.perspectivev3
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+*.xcscheme
+!default.xcscheme
+*.xctemplate
+*.xctool-args
+*.xcodeproj/*.xcworkspace/xcuserdata/
+*.xcodeproj/xcshareddata/xcschemes/*
+!*.xcodeproj/xcshareddata/xcschemes/*
+
+# CocoaPods
+##
+Pods/
+Podfile.lock
+
+# Carthage
+##
+Carthage/
+Carthage/Build
+
+# Swift Package Manager
+##
+.build/
+.swiftpm/xcode/package.xcworkspace
+.swiftpm/xcode/xcshareddata/swiftpackage/
+
+# Fastlane
+##
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Code Injection
+##
+injectionforxcode/
+
+# App Icons (consider excluding if they contain sensitive data)
+##
+# *.appiconset/
+# **/.generated*
+
+# Thumbnails created by macOS
+##
+._*
+
+# Files that might appear in the root of a volume
+##
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Yarn
+##
+.yarn/
+.yarn-cache/
+node_modules/
+.yarn-integrity
+
+# npm
+##
+package-lock.json
+node_modules/
