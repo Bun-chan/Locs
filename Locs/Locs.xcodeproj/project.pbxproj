@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3749B93F2BC11374009DBA41 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3749B93E2BC11374009DBA41 /* LocationManager.swift */; };
 		379FBC4C2BC100DB00B7C97D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FBC4B2BC100DB00B7C97D /* AppDelegate.swift */; };
 		379FBC4E2BC100DB00B7C97D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FBC4D2BC100DB00B7C97D /* SceneDelegate.swift */; };
 		379FBC502BC100DB00B7C97D /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379FBC4F2BC100DB00B7C97D /* LocationViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3749B93E2BC11374009DBA41 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		379FBC482BC100DB00B7C97D /* Locs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Locs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		379FBC4B2BC100DB00B7C97D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		379FBC4D2BC100DB00B7C97D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		37C4AA3E2BC1058500DE1E45 /* CoreLocation */ = {
 			isa = PBXGroup;
 			children = (
+				3749B93E2BC11374009DBA41 /* LocationManager.swift */,
 			);
 			path = CoreLocation;
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 				37C4AA3B2BC1051F00DE1E45 /* LocationViewModel.swift in Sources */,
 				37C4AA392BC1051700DE1E45 /* LocationRepository.swift in Sources */,
 				379FBC502BC100DB00B7C97D /* LocationViewController.swift in Sources */,
+				3749B93F2BC11374009DBA41 /* LocationManager.swift in Sources */,
 				37C4AA3D2BC1052900DE1E45 /* LocationUseCase.swift in Sources */,
 				379FBC4C2BC100DB00B7C97D /* AppDelegate.swift in Sources */,
 				379FBC4E2BC100DB00B7C97D /* SceneDelegate.swift in Sources */,

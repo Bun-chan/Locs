@@ -14,7 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        let repository = LocationRepository()
+        let locationManager = LocationManager()
+        let repository = LocationRepository(locationManager: locationManager)
         let useCase = LocationUseCase(locationRepository: repository)
         let viewModel = LocationViewModel(locationUseCase: useCase)
         
