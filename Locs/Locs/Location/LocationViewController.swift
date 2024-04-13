@@ -6,19 +6,15 @@
 //
 
 import UIKit
-import Combine
 
 class LocationViewController: UIViewController {
 
     private var viewModel: LocationViewModel
-    private var cancellables: Set<AnyCancellable> = []
 
-    
     init(viewModel: LocationViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.view.backgroundColor = .white
-        bindings()
         setupUI()
     }
     
@@ -32,16 +28,7 @@ class LocationViewController: UIViewController {
 
     @objc
     func addCurrentLocation() {
-        viewModel.addLocationTapped.send(())
-    }
-    
-    private func bindings() {
-        //When addLocation button is tapped get the current location.
-        viewModel.addLocationTapped
-            .sink(receiveValue: { [weak self] in
-                self?.viewModel.addCurrentLocation()
-            })
-            .store(in: &cancellables)
+        viewModel.addCurrentLocation()
     }
     
     private func setupUI() {

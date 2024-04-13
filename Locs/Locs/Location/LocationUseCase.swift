@@ -22,7 +22,7 @@ class LocationUseCase {
     func addCurrentLocation() -> AnyPublisher<String, Error> {
         locationRepository.addCurrentLocation()
             .map { location -> String in
-                print("location: \(location)")
+//                print("location: \(location)")
                 return location.description
             }
             .eraseToAnyPublisher()

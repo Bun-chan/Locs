@@ -25,7 +25,7 @@ class LocationRepository: LocationRepositoryProtocol {
     }
     
     func addCurrentLocation() -> AnyPublisher<CLLocation, Error> {
-        return locationManager.currentLocationPublisher()
+        return locationManager.addCurrentLocation()
     }
     
 }

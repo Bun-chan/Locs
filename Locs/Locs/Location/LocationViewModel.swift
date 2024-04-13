@@ -11,7 +11,6 @@ import Combine
 class LocationViewModel {
     
     private var locationUseCase: LocationUseCase
-    let addLocationTapped = PassthroughSubject<Void, Never>()
     private var cancellables: Set<AnyCancellable> = []
 
     
@@ -21,13 +20,13 @@ class LocationViewModel {
     
     func addCurrentLocation() {
         print("Adding location...")
+        cancellables.removeAll()
         locationUseCase.addCurrentLocation()
             .sink { completion in
-                print("completion :\(completion)")
+                print("VM completion :\(completion)")
             } receiveValue: { value in
-                print("value :\(value)")
+                print("VM value :\(value)")
             }
             .store(in: &cancellables)
-
     }
 }
