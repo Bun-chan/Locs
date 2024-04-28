@@ -1,31 +1,36 @@
-//
-//  LocationRepository.swift
-//  Locs
-//
-//  Created by STEPHEN FITZGERALD on 2024/04/06.
-//
-
 import Foundation
 import Combine
 import CoreLocation
 
 protocol LocationRepositoryProtocol {
-    func addCurrentLocation() -> AnyPublisher<CLLocation, Error>
+    func addCurrentLocation()
+    var location: PassthroughSubject<CLLocation, Never> { get }
+
 }
 
 
 class LocationRepository: LocationRepositoryProtocol {
     
-//    private var locationUseCase: LocationUseCase
     private var locationManager: LocationManager
     private var cancellables: Set<AnyCancellable> = []
+    public var location = PassthroughSubject<CLLocation, Never>()
 
     init(locationManager: LocationManager) {
         self.locationManager = locationManager
+        self.setupBindings()
     }
     
-    func addCurrentLocation() -> AnyPublisher<CLLocation, Error> {
-        return locationManager.addCurrentLocation()
+    func addCurrentLocation() {
+        locationManager.startUpdatingLocation()
+    }
+    
+    private func setupBindings() {
+        locationManager.location
+            .sink { value in
+                print("repo \(value)")
+                self.location.send(value)
+            }
+            .store(in: &cancellables)
     }
     
 }

@@ -1,10 +1,3 @@
-//
-//  LocationManager.swift
-//  Locs
-//
-//  Created by STEPHEN FITZGERALD on 2024/04/06.
-//
-
 import Foundation
 import CoreLocation
 import Combine
@@ -23,53 +16,40 @@ extension CLLocationManager: LocationManagerProtocol {}
 class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private var locationManager: LocationManagerProtocol
-    private let locationSubject = PassthroughSubject<CLLocation, Error>()
+    public var location = PassthroughSubject<CLLocation, Never>()
+    @Published private(set) var authorizationStatus: CLAuthorizationStatus
+    private var hasStartedUpdatingLocation = false
+    private var startUpdateLocationTime: Date?
+
     
     init(locationManager: LocationManagerProtocol = CLLocationManager()) {
         self.locationManager = locationManager
+        self.authorizationStatus = locationManager.authorizationStatus
+
         super.init()
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        requestLocationPermission()
-    }
-    
-    enum SimulationError: Error {
-        case simulatedError
-    }
-    
-    func addCurrentLocation() -> AnyPublisher<CLLocation, any Error> {
-        if locationManager.authorizationStatus == .authorizedWhenInUse || locationManager.authorizationStatus == .authorizedAlways {
-            print("ok")
-            locationManager.startUpdatingLocation()
-            return locationSubject.eraseToAnyPublisher()
-        } else {
-            print("not allowed")
-            return Fail(error: SimulationError.simulatedError)
-                .eraseToAnyPublisher()
-        }
-    }
-    
-    func requestWhenInUseAuthorization() {
-        
-    }
-    
-    func requestLocationPermission() {
-        locationManager.requestWhenInUseAuthorization()
     }
     
     func startUpdatingLocation() {
-        
+        //MARK: first check the auth status and then call start...
+        locationManager.startUpdatingLocation()
     }
     
     func stopUpdatingLocation() {
-        
+        locationManager.stopUpdatingLocation()
+    }
+
+    func requestWhenInUseAuthorization() {
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        self.authorizationStatus = manager.authorizationStatus
+
         switch manager.authorizationStatus {
         case .authorizedWhenInUse, .authorizedAlways:
             print("Location access granted.")
-//            locationManager.startUpdatingLocation()
         case .denied, .restricted:
             print("Location access denied.")
         default:
@@ -78,15 +58,22 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("shit")
-        if let location = locations.last {
-            locationSubject.send(location)
-            locationManager.stopUpdatingLocation()
+        if hasStartedUpdatingLocation == false {
+            startUpdateLocationTime = Date()
+            hasStartedUpdatingLocation = true
+        } else {
+            if let tempStartUpdateLocationTime = startUpdateLocationTime {
+                if Date().timeIntervalSince(tempStartUpdateLocationTime) > 2.0 {
+                    stopUpdatingLocation()
+                    print("LOC: \(String(describing: locations.last))")
+                    if let loc = locations.last {
+                        location.send(loc)
+                    }
+                    hasStartedUpdatingLocation = false
+                    startUpdateLocationTime = nil
+                }
+            }
         }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        locationSubject.send(completion: .failure(error))
     }
 }
 

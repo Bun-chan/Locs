@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  Locs
-//
-//  Created by STEPHEN FITZGERALD on 2024/04/06.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

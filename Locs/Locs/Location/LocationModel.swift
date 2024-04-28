@@ -1,10 +1,3 @@
-//
-//  LocationModel.swift
-//  Locs
-//
-//  Created by STEPHEN FITZGERALD on 2024/04/06.
-//
-
 import Foundation
 import CoreLocation
 import UIKit

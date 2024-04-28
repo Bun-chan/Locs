@@ -1,30 +1,29 @@
-//
-//  LocationUseCase.swift
-//  Locs
-//
-//  Created by STEPHEN FITZGERALD on 2024/04/06.
-//
-
 import Foundation
 import CoreLocation
 import Combine
 
 class LocationUseCase {
-
-    //    private var locationRepository: LocationRepository //Do not inject the concrete class. Inject the protocol.
     
     private let locationRepository: LocationRepositoryProtocol
-    
+    private var cancellables: Set<AnyCancellable> = []
+    public var location = PassthroughSubject<CLLocation, Never>()
+
     init(locationRepository: LocationRepositoryProtocol) {
         self.locationRepository = locationRepository
+        setupBindings()
     }
     
-    func addCurrentLocation() -> AnyPublisher<String, Error> {
+    func addCurrentLocation() {
         locationRepository.addCurrentLocation()
-            .map { location -> String in
-//                print("location: \(location)")
-                return location.description
+    }
+    
+    private func setupBindings() {
+        locationRepository.location
+            .sink { value in
+                print("UC \(value)")
+                self.location.send(value) //Return an instance of the LocationModel.
             }
-            .eraseToAnyPublisher()
+            .store(in: &cancellables)
+            
     }
 }
